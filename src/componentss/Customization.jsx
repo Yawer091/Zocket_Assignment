@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { ChromePicker } from "react-color";
 import CanvasComponent from "./Canva";
-// import React, { useState, useEffect, useRef } from "react";
 
 const Customization = () => {
   const data = {
@@ -167,7 +166,7 @@ const ColorPicker = ({ onSelectColor }) => {
 
   const handleLastColorClick = (newColor) => {
     setColor(newColor);
-    onSelectColor({ hex: newColor }); // Pass the color object directly
+    onSelectColor({ hex: newColor });
     setShowPicker(false);
   };
 

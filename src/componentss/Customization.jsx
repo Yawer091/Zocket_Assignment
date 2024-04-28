@@ -1,14 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { ChromePicker } from "react-color";
 import CanvasComponent from "./Canva";
+// import React, { useState, useEffect, useRef } from "react";
 
 const Customization = () => {
+  const data = {
+    caption: {
+      text: "1 & 2 BHK Luxury Apartments at just Rs.34.97 Lakhs",
+      position: { x: 50, y: 50 },
+      max_characters_per_line: 31,
+      font_size: 44,
+      alignment: "left",
+      text_color: "#FFFFFF",
+    },
+    cta: {
+      text: "Shop Now",
+      position: { x: 190, y: 320 },
+      text_color: "#FFFFFF",
+      background_color: "#000000",
+    },
+    image_mask: {
+      x: 56,
+      y: 442,
+      width: 970,
+      height: 600,
+    },
+    urls: {
+      mask: "https://d273i1jagfl543.cloudfront.net/templates/global_temp_landscape_temp_10_mask.png?random=12345",
+      stroke:
+        "https://d273i1jagfl543.cloudfront.net/templates/global_temp_landscape_temp_10_Mask_stroke.png?random=12345",
+      design_pattern:
+        "https://d273i1jagfl543.cloudfront.net/templates/global_temp_landscape_temp_10_Design_Pattern.png?random=12345",
+    },
+  };
+
+  const Coffeeimage =
+    "https://img.freepik.com/free-photo/cup-coffee-with-heart-drawn-foam_1286-70.jpg?t=st=1714218266~exp=1714221866~hmac=c054219a6e358ca00d3e9b5620693fae0a71766891cbc324a3854b14d73a5b2c&w=740";
+
   const [isVisible, setIsVisible] = useState(true);
-  const [image, setImage] = useState(null);
-  const [backgroundColor, setBackgroundColor] = useState("#ffffff");
-  const [adContent, setAdContent] = useState("");
-  const [cta, setCta] = useState("");
+  const [image, setImage] = useState(Coffeeimage);
+  const [backgroundColor, setBackgroundColor] = useState("#0369A1");
+  const [adContent, setAdContent] = useState(data.caption.text);
+  const [cta, setCta] = useState(data.cta.text);
   const [selectedColor, setSelectedColor] = useState("#000000");
 
   const toggleVisibility = () => {
@@ -110,17 +144,21 @@ const Customization = () => {
 };
 
 export default Customization;
-
 const ColorPicker = ({ onSelectColor }) => {
-  const [color, setColor] = useState("#ffffff");
+  const [color, setColor] = useState("#ffff");
   const [showPicker, setShowPicker] = useState(false);
-  const [lastColors, setLastColors] = useState([]);
+  const [recentColors, setRecentColors] = useState([]);
 
   const handleColorChange = (newColor) => {
     const selectedColor = newColor.hex;
     setColor(selectedColor);
-    setLastColors((prevColors) => [selectedColor, ...prevColors.slice(0, 4)]);
     onSelectColor(newColor);
+    if (!recentColors.includes(selectedColor)) {
+      setRecentColors((prevColors) => [
+        selectedColor,
+        ...prevColors.slice(0, 4),
+      ]);
+    }
   };
 
   const togglePicker = () => {
@@ -129,16 +167,16 @@ const ColorPicker = ({ onSelectColor }) => {
 
   const handleLastColorClick = (newColor) => {
     setColor(newColor);
+    onSelectColor({ hex: newColor }); // Pass the color object directly
     setShowPicker(false);
-    onSelectColor(newColor);
   };
 
   return (
     <div className="relative">
       <p className="m-[10px] text-[18px] text-gray-400">Choose your color</p>
-      {lastColors.length > 0 && (
+      {recentColors.length > 0 && (
         <div className="flex items-center">
-          {lastColors.map((c, index) => (
+          {recentColors.map((c, index) => (
             <div
               key={index}
               className="w-8 h-8 mx-1 cursor-pointer rounded-full"
@@ -155,7 +193,7 @@ const ColorPicker = ({ onSelectColor }) => {
         </div>
       )}
 
-      {!showPicker && lastColors.length === 0 && (
+      {!showPicker && recentColors.length === 0 && (
         <button
           onClick={togglePicker}
           className="px-[6px] py-[6px] bg-gray-400 text-white rounded-full"

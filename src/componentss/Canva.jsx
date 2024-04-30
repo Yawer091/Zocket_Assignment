@@ -124,11 +124,23 @@ class CanvasComponent extends Component {
     image.onload = () => {
       ctx.drawImage(
         image,
-        data.image_mask.x + 60,
+        data.image_mask.x,
         data.image_mask.y + 60,
-        data.image_mask.width - 120,
-        data.image_mask.height - 100
+        data.image_mask.width,
+        data.image_mask.height
       );
+    };
+
+    const logoImg = new Image();
+    logoImg.src =
+      "https://icon2.cleanpng.com/20180417/trw/kisspng-colonel-sanders-kfc-church-s-chicken-fried-chicken-burger-king-5ad670b0392298.7834946715240029922341.jpg";
+    logoImg.onload = () => {
+      const logoWidth = logoImg.width / 2;
+      const logoHeight = logoImg.height / 2.5;
+      const canvasWidth = canvas.width;
+      const logoX = canvasWidth - logoWidth - 50;
+      const logoY = 50;
+      ctx.drawImage(logoImg, logoX, logoY, logoWidth, logoHeight);
     };
 
     //Caption
@@ -145,18 +157,16 @@ class CanvasComponent extends Component {
     );
 
     //cta
-    const ctaWidth = 180;
-    const ctaHeight = 60;
-    ctx.fillRect(data.cta.position.x, data.cta.position.y, ctaWidth, ctaHeight);
-    ctx.fillStyle = data.cta.background_color;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.font = `${data.cta.font_size || 30}px Arial`;
-    ctx.fillText(
-      ctaText,
-      data.cta.position.x + ctaWidth / 2,
-      data.cta.position.y + ctaHeight / 2
-    );
+    ctx.font = "30px Arial";
+    const ctaTextWidth = ctx.measureText(this.state.ctaText).width;
+    const ctaWidth = ctaTextWidth + 40;
+    const ctaHeight = 60;
+    const borderRadius = 10;
+    ctx.fillRect(190 - ctaWidth / 2, 320, ctaWidth, ctaHeight, borderRadius);
+    ctx.fillStyle = "#000000";
+    ctx.fillText(this.state.ctaText, 190, 320 + ctaHeight / 2);
   }
 
   handleCaptionChange = (e) => {
@@ -249,7 +259,7 @@ class CanvasComponent extends Component {
                   id="adImageUpload"
                   type="file"
                   className="hidden"
-                  onChange={this.handleImageUpload}
+                  onChange={this.handleImageChange}
                 />
               </div>
             </div>

@@ -327,7 +327,7 @@ class CanvasComponent extends Component {
                     className="pointer w-[25px] h-[25px] border-[2px] rounded-[50%] text-[12px]"
                     onClick={this.handlePickerButtonClick}
                   >
-                    +
+                    ➕
                   </button>
                 </div>
                 {showPicker && (

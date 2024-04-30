@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 
 import { ChromePicker } from "react-color";
+import { data } from "autoprefixer";
 
 class CanvasComponent extends Component {
   constructor(props) {
@@ -285,7 +286,7 @@ class CanvasComponent extends Component {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="content"
                 type="text"
-                value={caption}
+                value={this.state.data.caption.text}
                 onChange={this.handleCaptionChange}
               />
             </div>
@@ -302,7 +303,7 @@ class CanvasComponent extends Component {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="ctaInput"
                 type="text"
-                value={ctaText}
+                value={this.state.data.cta.text}
                 onChange={this.handleCtaTextChange}
               />
 
@@ -310,7 +311,6 @@ class CanvasComponent extends Component {
                 <label
                   className="block text-lg font-bold mt-4"
                   htmlFor="backgroundColorInput"
-                  style={{ fontFamily: "cursive" }}
                 >
                   Choose your color
                 </label>
@@ -324,7 +324,7 @@ class CanvasComponent extends Component {
                     />
                   ))}
                   <button
-                    className="pointer w-[25px] h-[25px] border-[2px] rounded-[50%] text-[12px]"
+                    className="pointer w-[25px] h-[25px] border-[2px] bg-blue-300 rounded-[50%] text-[12px]"
                     onClick={this.handlePickerButtonClick}
                   >
                     ➕

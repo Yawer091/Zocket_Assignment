@@ -1,12 +1,11 @@
 import "./App.css";
-
-import Customization from "./componentss/Customization";
+import CanvasComponent from "./componentss/Canva";
 
 function App() {
   return (
-    <div className="w-[80%] mx-auto mt-[100px] ">
-      <Customization />
-    </div>
+    <>
+      <CanvasComponent />
+    </>
   );
 }
 
